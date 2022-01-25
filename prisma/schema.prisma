@@ -13,8 +13,18 @@ datasource db {
 model User {
   id      Int      @id @default(autoincrement())
   email   String   @unique
-  name    String?
+  name    String
   role    Role     @default(USER)
+  city    String?
+  street  String?
+}
+
+model Product {
+  id      Int      @id @default(autoincrement())
+  name    String @unique
+  category  String
+  price   Int
+  image   String
 }
 
 enum Role {
