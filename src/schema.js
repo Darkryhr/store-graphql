@@ -18,6 +18,21 @@ const typeDefs = gql`
     street: String
   }
 
+  type Cart {
+    id: ID!
+    customerId: ID!
+    active: Boolean = true
+    createdAT: DATETIME!
+    items: [CartItem!]
+  }
+
+  type CartItem {
+    createdAT: DATETIME!
+    productId: ID!
+    cartId: ID!
+    id: ID! 
+  }
+
   enum Role {
     USER
     ADMIN

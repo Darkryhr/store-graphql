@@ -11,20 +11,38 @@ datasource db {
 }
 
 model User {
-  id      Int      @id @default(autoincrement())
-  email   String   @unique
-  name    String
-  role    Role     @default(USER)
-  city    String?
-  street  String?
+  id          Int      @id @default(autoincrement())
+  email       String   @unique
+  name        String
+  role        Role     @default(USER)
+  city        String?
+  street      String?
 }
 
 model Product {
-  id      Int      @id @default(autoincrement())
-  name    String @unique
-  category  String
-  price   Int
-  image   String
+  id          Int      @id @default(autoincrement())
+  name        String @unique
+  category    String
+  price       Int
+  image       String
+  carts       CartItem[]
+}
+
+model Cart {
+  id          Int @id @default(autoincrement())
+  customerId  Int
+  active      Boolean
+  createdAt   DateTime @default(now())
+  items       CartItem[]
+}
+
+model CartItem {
+  createdAt   DateTime @default(now())
+  productId   Int
+  product     Product @relation(fields: [productId],references: [id])
+  cartId      Int 
+  cart        Cart @relation(fields: [cartId],references: [id])
+  @@id([productId,cartId])
 }
 
 enum Role {
